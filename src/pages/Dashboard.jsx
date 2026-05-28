@@ -107,6 +107,14 @@ Search
 className="candidate-card"
 key={candidate._id}
 >
+  <button className="save-btn">
+Save Candidate
+</button>
+
+<textarea
+placeholder="Recruiter Notes..."
+className="notes"
+/>
 
 <h2>
 {candidate.name}
@@ -156,7 +164,9 @@ Match Score:
 
 </div>
 
+
   );
+  
 
 };
 

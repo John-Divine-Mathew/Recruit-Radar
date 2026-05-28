@@ -45,4 +45,5 @@ function CandidateCard({ candidate }) {
   );
 }
 
+
 export default CandidateCard;
