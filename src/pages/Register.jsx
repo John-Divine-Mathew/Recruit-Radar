@@ -1,7 +1,114 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import API from "../services/api";
+
+import "../styles/auth.css";
+
 function Register() {
+
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const res = await API.post(
+        "/auth/register",
+        formData
+      );
+
+      alert(res.data.message);
+
+      navigate("/");
+
+    } catch (error) {
+
+      alert(
+        error.response?.data?.message ||
+        "Registration Failed"
+      );
+
+    }
+  };
+
   return (
-    <div>
-      <h1>Recruit Radar Register</h1>
+    <div className="auth-container">
+
+      <div className="auth-card">
+
+        <h1 className="auth-title">
+          Recruit Radar
+        </h1>
+
+        <p className="auth-subtitle">
+          Create Recruiter Account
+        </p>
+
+        <form
+          className="auth-form"
+          onSubmit={handleSubmit}
+        >
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            className="auth-input"
+            onChange={handleChange}
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="auth-input"
+            onChange={handleChange}
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="auth-input"
+            onChange={handleChange}
+          />
+
+          <button
+            type="submit"
+            className="auth-button"
+          >
+            Register
+          </button>
+
+        </form>
+
+        <div className="auth-footer">
+
+          Already have an account?
+
+          <Link to="/">
+            Login
+          </Link>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }

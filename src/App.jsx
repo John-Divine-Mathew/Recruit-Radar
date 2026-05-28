@@ -6,10 +6,14 @@ import {
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
 
         <Route
@@ -22,8 +26,15 @@ function App() {
           element={<Register />}
         />
 
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+
       </Routes>
+
     </BrowserRouter>
+
   );
 }
 
