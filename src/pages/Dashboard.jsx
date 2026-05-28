@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React,
+{
+  useEffect,
+  useState
+}
+from "react";
 
-import API from "../services/api";
+import API from
+"../services/api";
 
 import "./Dashboard.css";
 
 const Dashboard = () => {
 
-  const [candidates, setCandidates] = useState([]);
+  const [candidates,
+  setCandidates] =
+  useState([]);
+
+  const [search,
+  setSearch] =
+  useState("");
 
   useEffect(() => {
 
@@ -14,15 +26,43 @@ const Dashboard = () => {
 
   }, []);
 
-  const fetchCandidates = async () => {
+  const fetchCandidates =
+  async () => {
 
     try {
 
-      const response = await API.get(
+      const response =
+      await API.get(
         "/candidates/all"
       );
 
-      setCandidates(response.data);
+      setCandidates(
+        response.data
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+  const handleSearch =
+  async () => {
+
+    try {
+
+      const response =
+      await API.get(
+
+`/candidates/search?search=${search}`
+
+      );
+
+      setCandidates(
+        response.data
+      );
 
     } catch (error) {
 
@@ -34,71 +74,87 @@ const Dashboard = () => {
 
   return (
 
-    <div className="dashboard">
+<div className="dashboard">
 
-      <h1>
-        Recruit Radar Dashboard
-      </h1>
+<h1>
+Recruit Radar Dashboard
+</h1>
 
-      <div className="candidate-grid">
+<div className="search-bar">
 
-        {candidates.map((candidate) => (
+<input
+type="text"
+placeholder=
+"Search skills, role, location..."
+value={search}
+onChange={(e)=>
+setSearch(e.target.value)}
+/>
 
-          <div
-            className="candidate-card"
-            key={candidate._id}
-          >
+<button
+onClick={handleSearch}
+>
+Search
+</button>
 
-            <h2>{candidate.name}</h2>
+</div>
 
-            <p>
-              <strong>Role:</strong>
-              {candidate.role}
-            </p>
+<div className="candidate-grid">
 
-            <p>
-              <strong>Experience:</strong>
-              {candidate.experience} Years
-            </p>
+{candidates.map((candidate)=>(
 
-            <p>
-              <strong>Location:</strong>
-              {candidate.location}
-            </p>
+<div
+className="candidate-card"
+key={candidate._id}
+>
 
-            <p>
-              <strong>Education:</strong>
-              {candidate.education}
-            </p>
+<h2>
+{candidate.name}
+</h2>
 
-            <div className="skills">
+<p>
+<strong>Role:</strong>
+{candidate.role}
+</p>
 
-              {candidate.skills.map(
-                (skill, index) => (
+<p>
+<strong>Experience:</strong>
+{candidate.experience}
+Years
+</p>
 
-                  <span key={index}>
-                    {skill}
-                  </span>
+<p>
+<strong>Location:</strong>
+{candidate.location}
+</p>
 
-                )
-              )}
+<div className="skills">
 
-            </div>
+{candidate.skills.map(
+(skill,index)=>(
 
-            <div className="score">
+<span key={index}>
+{skill}
+</span>
 
-              Match Score:
-              {candidate.matchScore}%
+))}
 
-            </div>
+</div>
 
-          </div>
+<div className="score">
 
-        ))}
+Match Score:
+{candidate.matchScore}%
 
-      </div>
+</div>
 
-    </div>
+</div>
+
+))}
+
+</div>
+
+</div>
 
   );
 
