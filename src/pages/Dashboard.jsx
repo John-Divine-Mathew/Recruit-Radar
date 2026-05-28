@@ -1,94 +1,107 @@
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import CandidateCard from "../components/CandidateCard";
+import React, { useEffect, useState } from "react";
 
-import "../styles/dashboard.css";
+import API from "../services/api";
 
-function Dashboard() {
+import "./Dashboard.css";
 
-  const candidates = [
+const Dashboard = () => {
 
-    {
-      name: "Arun Kumar",
-      role: "Frontend Developer",
-      experience: 3,
-      location: "Chennai",
-      skills: [
-        "React",
-        "JavaScript",
-        "CSS",
-      ],
-      matchScore: 92,
-    },
+  const [candidates, setCandidates] = useState([]);
 
-    {
-      name: "Priya Sharma",
-      role: "Java Developer",
-      experience: 4,
-      location: "Bangalore",
-      skills: [
-        "Java",
-        "Spring Boot",
-        "MySQL",
-      ],
-      matchScore: 88,
-    },
+  useEffect(() => {
 
-    {
-      name: "Vignesh",
-      role: "Mechanical Engineer",
-      experience: 2,
-      location: "Coimbatore",
-      skills: [
-        "AutoCAD",
-        "SolidWorks",
-      ],
-      matchScore: 81,
-    },
+    fetchCandidates();
 
-  ];
+  }, []);
+
+  const fetchCandidates = async () => {
+
+    try {
+
+      const response = await API.get(
+        "/candidates/all"
+      );
+
+      setCandidates(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
 
   return (
 
     <div className="dashboard">
 
-      <Sidebar />
+      <h1>
+        Recruit Radar Dashboard
+      </h1>
 
-      <div className="dashboard-main">
+      <div className="candidate-grid">
 
-        <Navbar />
+        {candidates.map((candidate) => (
 
-        <div className="search-box">
+          <div
+            className="candidate-card"
+            key={candidate._id}
+          >
 
-          <input
-            type="text"
-            placeholder="Search candidates..."
-            className="search-input"
-          />
+            <h2>{candidate.name}</h2>
 
-          <button className="search-button">
-            Search
-          </button>
+            <p>
+              <strong>Role:</strong>
+              {candidate.role}
+            </p>
 
-        </div>
+            <p>
+              <strong>Experience:</strong>
+              {candidate.experience} Years
+            </p>
 
-        <div className="candidate-grid">
+            <p>
+              <strong>Location:</strong>
+              {candidate.location}
+            </p>
 
-          {candidates.map((candidate, index) => (
+            <p>
+              <strong>Education:</strong>
+              {candidate.education}
+            </p>
 
-            <CandidateCard
-              key={index}
-              candidate={candidate}
-            />
+            <div className="skills">
 
-          ))}
+              {candidate.skills.map(
+                (skill, index) => (
 
-        </div>
+                  <span key={index}>
+                    {skill}
+                  </span>
+
+                )
+              )}
+
+            </div>
+
+            <div className="score">
+
+              Match Score:
+              {candidate.matchScore}%
+
+            </div>
+
+          </div>
+
+        ))}
 
       </div>
 
     </div>
+
   );
-}
+
+};
 
 export default Dashboard;
