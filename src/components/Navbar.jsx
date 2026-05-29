@@ -8,9 +8,23 @@ return (
 
 <div className="navbar">
 
+<div>
+
 <h1>
 Recruit Radar
 </h1>
+
+<p>
+Smart AI Recruitment System
+</p>
+
+</div>
+
+<div className="profile">
+
+HR Admin
+
+</div>
 
 </div>
 

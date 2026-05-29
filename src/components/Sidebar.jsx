@@ -14,7 +14,11 @@ return (
 
 <h2>Analytics</h2>
 
-<h2>Saved</h2>
+<h2>Saved Candidates</h2>
+
+<h2>Recruiters</h2>
+
+<h2>Settings</h2>
 
 </div>
 

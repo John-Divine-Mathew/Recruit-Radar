@@ -1,106 +1,136 @@
+import React,
+{
+useEffect,
+useState
+}
+from "react";
+
+import API
+from "../services/api";
+
 import Navbar
 from "../components/Navbar";
 
 import Sidebar
 from "../components/Sidebar";
-import React,
-{
-  useEffect,
-  useState
-}
-from "react";
-
-import API from
-"../services/api";
 
 import "./Dashboard.css";
 
 const Dashboard = () => {
 
-  const [candidates,
-  setCandidates] =
-  useState([]);
+const [candidates,
+setCandidates] =
+useState([]);
 
-  const [search,
-  setSearch] =
-  useState("");
+const [search,
+setSearch] =
+useState("");
 
-  useEffect(() => {
+useEffect(() => {
 
-    fetchCandidates();
+fetchCandidates();
 
-  }, []);
+}, []);
 
-  const fetchCandidates =
-  async () => {
+const fetchCandidates =
+async () => {
 
-    try {
+try {
 
-      const response =
-      await API.get(
-        "/candidates/all"
-      );
+const response =
+await API.get(
+"/candidates/all"
+);
 
-      setCandidates(
-        response.data
-      );
+setCandidates(
+response.data
+);
 
-    } catch (error) {
+} catch (error) {
 
-      console.log(error);
+console.log(error);
 
-    }
+}
 
-  };
+};
 
-  const handleSearch =
-  async () => {
+const handleSearch =
+async () => {
 
-    try {
+try {
 
-      const response =
-      await API.get(
+const response =
+await API.get(
 
 `/candidates/search?search=${search}`
 
-      );
+);
 
-      setCandidates(
-        response.data
-      );
+setCandidates(
+response.data
+);
 
-    } catch (error) {
+} catch (error) {
 
-      console.log(error);
+console.log(error);
 
-    }
+}
 
-  };
+};
 
-  return (
+return (
 
 <>
+
 <Navbar />
+
 <Sidebar />
 
-<div
-className="dashboard"
-style={{
-marginLeft:"270px",
-marginTop:"100px"
-}}
->
+<div className="dashboard">
+
+<div className="top-section">
+
+<div className="dashboard-title">
 
 <h1>
-Recruit Radar Dashboard
+Recruit Radar
 </h1>
+
+<p>
+AI Powered Recruitment Platform
+</p>
+
+</div>
+
+<div className="stats-grid">
+
+<div className="stat-card">
+<h2>
+{candidates.length}
+</h2>
+<p>Total Candidates</p>
+</div>
+
+<div className="stat-card">
+<h2>92%</h2>
+<p>Match Accuracy</p>
+</div>
+
+<div className="stat-card">
+<h2>120+</h2>
+<p>Searches Today</p>
+</div>
+
+</div>
+
+</div>
 
 <div className="search-bar">
 
 <input
 type="text"
 placeholder=
-"Search skills, role, location..."
+"Search by role, skills, location..."
 value={search}
 onChange={(e)=>
 setSearch(e.target.value)}
@@ -122,34 +152,47 @@ Search
 className="candidate-card"
 key={candidate._id}
 >
-  <button className="save-btn">
-Save Candidate
-</button>
 
-<textarea
-placeholder="Recruiter Notes..."
-className="notes"
-/>
+<div className="candidate-header">
+
+<div>
 
 <h2>
 {candidate.name}
 </h2>
 
-<p>
-<strong>Role:</strong>
+<p className="role">
 {candidate.role}
 </p>
 
+</div>
+
+<div className="match-score">
+
+{candidate.matchScore}%
+
+</div>
+
+</div>
+
+<div className="candidate-info">
+
 <p>
 <strong>Experience:</strong>
-{candidate.experience}
-Years
+{candidate.experience} Years
 </p>
 
 <p>
 <strong>Location:</strong>
 {candidate.location}
 </p>
+
+<p>
+<strong>Education:</strong>
+{candidate.education}
+</p>
+
+</div>
 
 <div className="skills">
 
@@ -164,12 +207,23 @@ Years
 
 </div>
 
-<div className="score">
+<div className="card-actions">
 
-Match Score:
-{candidate.matchScore}%
+<button className="save-btn">
+Save
+</button>
+
+<button className="view-btn">
+View Profile
+</button>
 
 </div>
+
+<textarea
+placeholder=
+"Recruiter Notes..."
+className="notes"
+/>
 
 </div>
 
@@ -178,11 +232,10 @@ Match Score:
 </div>
 
 </div>
+
 </>
 
-
-  );
-  
+);
 
 };
 
