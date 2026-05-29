@@ -1,39 +1,25 @@
-function Sidebar() {
+import React from "react";
 
-  return (
+import "./Layout.css";
 
-    <div className="sidebar">
+const Sidebar = () => {
 
-      <div className="logo">
-        Recruit Radar
-      </div>
+return (
 
-      <div className="sidebar-menu">
+<div className="sidebar">
 
-        <div className="menu-item">
-          Dashboard
-        </div>
+<h2>Dashboard</h2>
 
-        <div className="menu-item">
-          Search Candidates
-        </div>
+<h2>Candidates</h2>
 
-        <div className="menu-item">
-          Saved Candidates
-        </div>
+<h2>Analytics</h2>
 
-        <div className="menu-item">
-          Analytics
-        </div>
+<h2>Saved</h2>
 
-        <div className="menu-item">
-          Resume Upload
-        </div>
+</div>
 
-      </div>
+);
 
-    </div>
-  );
-}
+};
 
 export default Sidebar;

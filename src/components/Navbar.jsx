@@ -1,23 +1,21 @@
-function Navbar() {
+import React from "react";
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+import "./Layout.css";
 
-  return (
+const Navbar = () => {
 
-    <div className="navbar">
+return (
 
-      <div className="nav-title">
-        ATS Recruitment Dashboard
-      </div>
+<div className="navbar">
 
-      <div className="user-box">
-        {user?.name}
-      </div>
+<h1>
+Recruit Radar
+</h1>
 
-    </div>
-  );
-}
+</div>
+
+);
+
+};
 
 export default Navbar;

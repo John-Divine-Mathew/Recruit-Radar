@@ -1,116 +1,44 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 
-import API from "../services/api";
+import "./Auth.css";
 
-import "../styles/auth.css";
+const Register = () => {
 
-function Register() {
+return (
 
-  const navigate = useNavigate();
+<div className="auth-container">
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+<div className="auth-box">
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+<h1>Recruit Radar</h1>
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+<h2>HR Register</h2>
 
-    try {
+<input
+type="text"
+placeholder="Company Name"
+/>
 
-      const res = await API.post(
-        "/auth/register",
-        formData
-      );
+<input
+type="email"
+placeholder="Email"
+/>
 
-      alert(res.data.message);
+<input
+type="password"
+placeholder="Password"
+/>
 
-      navigate("/");
+<button>
+Register
+</button>
 
-    } catch (error) {
+</div>
 
-      alert(
-        error.response?.data?.message ||
-        "Registration Failed"
-      );
+</div>
 
-    }
-  };
+);
 
-  return (
-    <div className="auth-container">
-
-      <div className="auth-card">
-
-        <h1 className="auth-title">
-          Recruit Radar
-        </h1>
-
-        <p className="auth-subtitle">
-          Create Recruiter Account
-        </p>
-
-        <form
-          className="auth-form"
-          onSubmit={handleSubmit}
-        >
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            className="auth-input"
-            onChange={handleChange}
-          />
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="auth-input"
-            onChange={handleChange}
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="auth-input"
-            onChange={handleChange}
-          />
-
-          <button
-            type="submit"
-            className="auth-button"
-          >
-            Register
-          </button>
-
-        </form>
-
-        <div className="auth-footer">
-
-          Already have an account?
-
-          <Link to="/">
-            Login
-          </Link>
-
-        </div>
-
-      </div>
-
-    </div>
-  );
-}
+};
 
 export default Register;

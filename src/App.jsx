@@ -1,31 +1,57 @@
 import React from "react";
 
 import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
+BrowserRouter,
+Routes,
+Route,
+Navigate
+}
+from "react-router-dom";
 
-import Dashboard from "./pages/Dashboard";
+import Dashboard
+from "./pages/Dashboard";
+
+import Login
+from "./pages/Login";
+
+import Register
+from "./pages/Register";
 
 function App() {
 
-  return (
+return (
 
-    <BrowserRouter>
+<BrowserRouter>
 
-      <Routes>
+<Routes>
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+<Route
+path="/"
+element={
+<Navigate to="/login"/>
+}
+/>
 
-      </Routes>
+<Route
+path="/login"
+element={<Login />}
+/>
 
-    </BrowserRouter>
+<Route
+path="/register"
+element={<Register />}
+/>
 
-  );
+<Route
+path="/dashboard"
+element={<Dashboard />}
+/>
+
+</Routes>
+
+</BrowserRouter>
+
+);
 
 }
 

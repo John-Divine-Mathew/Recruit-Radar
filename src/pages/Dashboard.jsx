@@ -1,3 +1,8 @@
+import Navbar
+from "../components/Navbar";
+
+import Sidebar
+from "../components/Sidebar";
 import React,
 {
   useEffect,
@@ -74,7 +79,17 @@ const Dashboard = () => {
 
   return (
 
-<div className="dashboard">
+<>
+<Navbar />
+<Sidebar />
+
+<div
+className="dashboard"
+style={{
+marginLeft:"270px",
+marginTop:"100px"
+}}
+>
 
 <h1>
 Recruit Radar Dashboard
@@ -163,6 +178,7 @@ Match Score:
 </div>
 
 </div>
+</>
 
 
   );
