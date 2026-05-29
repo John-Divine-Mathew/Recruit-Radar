@@ -15,7 +15,7 @@ Recruit Radar
 </h1>
 
 <p>
-Smart AI Recruitment System
+AI Recruitment Dashboard
 </p>
 
 </div>
